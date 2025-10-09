@@ -5,7 +5,9 @@ import type {
   BookingCreateRequest
 } from '../types';
 
-const API_BASE_URL = 'http://localhost:8000';
+// Get API base URL from environment variable or use current origin
+const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:8000');
 
 class ApiClient {
   private token: string | null = null;

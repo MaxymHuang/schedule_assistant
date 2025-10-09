@@ -35,12 +35,14 @@ A simple web-based system for lending professional equipment with user authentic
 
 ## Getting Started
 
-### Prerequisites
+### Development Setup
+
+#### Prerequisites
 - Python 3.11+
 - Node.js 16+
 - uv (Python package manager)
 
-### Backend Setup
+#### Backend Setup
 
 1. Navigate to the backend directory:
 ```bash
@@ -59,7 +61,7 @@ uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 The API will be available at `http://localhost:8000`
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Navigate to the frontend directory:
 ```bash
@@ -76,7 +78,25 @@ npm install
 npm run dev
 ```
 
-The frontend will be available at `http://localhost:3000`
+The frontend will be available at `http://localhost:5173`
+
+### Production Deployment
+
+For production deployment using Docker Compose with PostgreSQL, see the [DEPLOYMENT.md](DEPLOYMENT.md) guide.
+
+#### Quick Production Start
+
+```bash
+# Copy environment templates
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
+
+# Edit environment files with your settings
+# Then deploy with Docker Compose
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+The application will be available at `http://your-server-ip`
 
 ## API Endpoints
 
@@ -102,16 +122,18 @@ The frontend will be available at `http://localhost:3000`
 
 ## Usage
 
-### Sample Accounts
-- **Admin**: admin@example.com / admin
-- **User**: user@example.com / user
+### Default Admin Account
+- **Email**: admin@admin.com
+- **Password**: admin123
+
+**Important**: Change the admin password after first login in production.
 
 ### User Flow
-1. **Register/Login**: Create an account or sign in with sample credentials
+1. **Login**: Sign in with admin credentials or register a new account
 2. **Browse Equipment**: View available equipment with search and filters
 3. **Book Equipment**: Select equipment and choose borrow/return dates
 4. **Manage Bookings**: View and cancel your bookings from the dashboard
-5. **Admin Functions**: Admins can manage equipment inventory
+5. **Admin Functions**: Admins can manage equipment inventory and users
 
 ## Database Schema
 
@@ -127,15 +149,25 @@ The frontend will be available at `http://localhost:3000`
 ## Development
 
 ### Backend Development
-- The database is automatically created on first run
+- PostgreSQL database with automatic initialization
 - Use `uv run uvicorn main:app --reload` for development
 - API documentation available at `http://localhost:8000/docs`
+- Environment variables configured via `.env` file
 
 ### Frontend Development
 - Uses Vite for fast development
 - Hot reload enabled
 - TypeScript for type safety
 - Tailwind CSS for styling
+- Environment variables via `.env` file
+
+### Production Features
+- Docker containerization for both frontend and backend
+- PostgreSQL database with persistent storage
+- Nginx reverse proxy with static file serving
+- Health checks and restart policies
+- Environment-based configuration
+- Security headers and optimizations
 
 ## License
 

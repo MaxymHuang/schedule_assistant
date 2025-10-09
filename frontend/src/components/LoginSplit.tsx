@@ -138,8 +138,8 @@ const LoginSplit: React.FC<LoginSplitProps> = ({ onSwitchToRegister }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    setEmail('admin@example.com');
-                    setPassword('admin');
+                    setEmail('admin@admin.com');
+                    setPassword('admin123');
                   }}
                   className="w-full rounded-lg border border-muted bg-white px-4 py-3 text-gray-700 hover:bg-brand-base transition-colors"
                 >
@@ -148,8 +148,8 @@ const LoginSplit: React.FC<LoginSplitProps> = ({ onSwitchToRegister }) => {
                 <button
                   type="button"
                   onClick={() => {
-                    setEmail('user@example.com');
-                    setPassword('user');
+                    setEmail('');
+                    setPassword('');
                   }}
                   className="w-full rounded-lg border border-muted bg-white px-4 py-3 text-gray-700 hover:bg-brand-base transition-colors"
                 >

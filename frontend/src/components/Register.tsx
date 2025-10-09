@@ -96,7 +96,7 @@ const Register: React.FC<RegisterProps> = ({ onSwitchToLogin }) => {
               <input
                 id="email"
                 name="email"
-                placeholder="user@example.com"
+                placeholder="your@email.com"
                 type="email"
                 required
                 value={email}

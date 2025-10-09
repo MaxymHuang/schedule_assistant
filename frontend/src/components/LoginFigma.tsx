@@ -146,8 +146,8 @@ const LoginFigma: React.FC<LoginFigmaProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('admin@example.com');
-                  setPassword('admin');
+                  setEmail('admin@admin.com');
+                  setPassword('admin123');
                 }}
                 className="w-full text-gray-700 py-2 px-3 text-sm font-medium"
                 style={{
@@ -168,8 +168,8 @@ const LoginFigma: React.FC<LoginFigmaProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('user@example.com');
-                  setPassword('user');
+                  setEmail('');
+                  setPassword('');
                 }}
                 className="w-full text-gray-700 py-2 px-3 text-sm font-medium"
                 style={{

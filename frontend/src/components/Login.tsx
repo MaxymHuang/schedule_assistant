@@ -66,7 +66,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
                 <input
                   id="email"
                   name="email"
-                  placeholder="user@example.com"
+                  placeholder="your@email.com"
                   type="email"
                   required
                   value={email}
@@ -145,8 +145,8 @@ const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('admin@example.com');
-                  setPassword('admin');
+                  setEmail('admin@admin.com');
+                  setPassword('admin123');
                 }}
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none transition"
               >
@@ -155,8 +155,8 @@ const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('user@example.com');
-                  setPassword('user');
+                  setEmail('');
+                  setPassword('');
                 }}
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none transition"
               >

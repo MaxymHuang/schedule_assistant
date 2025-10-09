@@ -115,8 +115,8 @@ const LoginModern: React.FC<LoginModernProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('admin@example.com');
-                  setPassword('admin');
+                  setEmail('admin@admin.com');
+                  setPassword('admin123');
                 }}
                 className="w-full rounded-md border border-muted bg-white px-3 py-2 text-gray-700 hover:bg-brand-base"
               >
@@ -125,8 +125,8 @@ const LoginModern: React.FC<LoginModernProps> = ({ onSwitchToRegister }) => {
               <button
                 type="button"
                 onClick={() => {
-                  setEmail('user@example.com');
-                  setPassword('user');
+                  setEmail('');
+                  setPassword('');
                 }}
                 className="w-full rounded-md border border-muted bg-white px-3 py-2 text-gray-700 hover:bg-brand-base"
               >
