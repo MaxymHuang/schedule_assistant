@@ -10,6 +10,7 @@ from app.core.database import engine, SessionLocal, Base
 from app.core.auth import get_password_hash
 from app.models.user import User, UserRole
 from app.models.equipment import Equipment, EquipmentStatus
+from app.models.category import Category
 
 def init_db():
     # Create all tables

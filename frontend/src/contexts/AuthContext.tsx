@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
 import { apiClient } from '../api/client';
 
 interface User {
   id: number;
   email: string;
   name: string;
-  role: 'user' | 'admin';
+  role: 'USER' | 'ADMIN';
   created_at: string;
 }
 
@@ -38,21 +38,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Check for stored token on app load
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-      // Set token in API client
-      apiClient.setToken(storedToken);
-      // Fetch user profile
-      fetchUserProfile();
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       const userProfile = await apiClient.getCurrentUser();
       setUser(userProfile);
@@ -65,7 +51,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // Check for stored token on app load
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+      // Set token in API client
+      apiClient.setToken(storedToken);
+      // Fetch user profile
+      fetchUserProfile();
+    } else {
+      setLoading(false);
+    }
+  }, [fetchUserProfile]);
 
   const login = async (email: string, password: string) => {
     try {

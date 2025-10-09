@@ -25,4 +25,4 @@ class Equipment(Base):
 
     # Relationships
     bookings = relationship("Booking", back_populates="equipment")
-    category_ref = relationship("Category", back_populates="equipment")
+    category_ref = relationship("Category", back_populates="equipment", lazy="select")

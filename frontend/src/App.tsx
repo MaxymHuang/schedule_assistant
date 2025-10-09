@@ -112,7 +112,7 @@ const App: React.FC = () => {
               >
                 Booking Calendar
               </button>
-              {user?.role === 'admin' && (
+              {user?.role === 'ADMIN' && (
                 <>
                   <button
                     onClick={() => setActiveTab('admin')}
@@ -141,7 +141,7 @@ const App: React.FC = () => {
             )}
             {activeTab === 'bookings' && <BookingList />}
             {activeTab === 'booking-calendar' && <EquipmentBookingCalendar />}
-            {activeTab === 'admin' && user?.role === 'admin' && (
+            {activeTab === 'admin' && user?.role === 'ADMIN' && (
               <ProtectedRoute requireAdmin={true}>
                 <div className="space-y-16">
                   <AdminEquipmentList />
@@ -149,7 +149,7 @@ const App: React.FC = () => {
                 </div>
               </ProtectedRoute>
             )}
-            {activeTab === 'database' && user?.role === 'admin' && (
+            {activeTab === 'database' && user?.role === 'ADMIN' && (
               <ProtectedRoute requireAdmin={true}>
                 <AdminDatabasePanel />
               </ProtectedRoute>

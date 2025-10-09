@@ -139,56 +139,6 @@ const LoginFigma: React.FC<LoginFigmaProps> = ({ onSwitchToRegister }) => {
             </button>
           </form>
 
-          {/* Demo Login Buttons */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs text-gray-500 text-center mb-3">Quick demo login</p>
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('admin@admin.com');
-                  setPassword('admin123');
-                }}
-                className="w-full text-gray-700 py-2 px-3 text-sm font-medium"
-                style={{
-                  backgroundColor: '#f3f4f6',
-                  borderRadius: '0.5rem',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.backgroundColor = '#e5e7eb';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.backgroundColor = '#f3f4f6';
-                }}
-              >
-                Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('');
-                  setPassword('');
-                }}
-                className="w-full text-gray-700 py-2 px-3 text-sm font-medium"
-                style={{
-                  backgroundColor: '#f3f4f6',
-                  borderRadius: '0.5rem',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  (e.target as HTMLElement).style.backgroundColor = '#e5e7eb';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.backgroundColor = '#f3f4f6';
-                }}
-              >
-                User
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Create Account Link */}

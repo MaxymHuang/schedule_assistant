@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
                 <div className="flex items-center space-x-2">
                   <span className="text-sm text-gray-600">Welcome,</span>
                   <span className="text-sm font-medium text-gray-900">{user.name}</span>
-                  {user.role === 'admin' && (
+                  {user.role === 'ADMIN' && (
                     <span className="badge badge-info">Admin</span>
                   )}
                 </div>

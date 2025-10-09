@@ -131,32 +131,6 @@ const LoginSplit: React.FC<LoginSplitProps> = ({ onSwitchToRegister }) => {
               </button>
             </form>
 
-            {/* Subtle demo controls */}
-            <details className="mt-8 text-sm text-gray-500">
-              <summary className="cursor-pointer select-none">Quick demo login</summary>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail('admin@admin.com');
-                    setPassword('admin123');
-                  }}
-                  className="w-full rounded-lg border border-muted bg-white px-4 py-3 text-gray-700 hover:bg-brand-base transition-colors"
-                >
-                  Admin
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEmail('');
-                    setPassword('');
-                  }}
-                  className="w-full rounded-lg border border-muted bg-white px-4 py-3 text-gray-700 hover:bg-brand-base transition-colors"
-                >
-                  User
-                </button>
-              </div>
-            </details>
           </div>
         </div>
       </div>

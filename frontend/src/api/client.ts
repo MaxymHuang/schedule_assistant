@@ -80,7 +80,7 @@ class ApiClient {
     id: number;
     email: string;
     name: string;
-    role: 'user' | 'admin';
+    role: 'USER' | 'ADMIN';
     created_at: string;
   }> {
     return this.request('/api/auth/me');

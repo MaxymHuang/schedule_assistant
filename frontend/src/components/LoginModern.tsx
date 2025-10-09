@@ -108,32 +108,6 @@ const LoginModern: React.FC<LoginModernProps> = ({ onSwitchToRegister }) => {
             </button>
           </form>
 
-          {/* Subtle demo controls */}
-          <details className="mt-6 text-sm text-gray-500">
-            <summary className="cursor-pointer select-none">Quick demo login</summary>
-            <div className="mt-3 grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('admin@admin.com');
-                  setPassword('admin123');
-                }}
-                className="w-full rounded-md border border-muted bg-white px-3 py-2 text-gray-700 hover:bg-brand-base"
-              >
-                Admin
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail('');
-                  setPassword('');
-                }}
-                className="w-full rounded-md border border-muted bg-white px-3 py-2 text-gray-700 hover:bg-brand-base"
-              >
-                User
-              </button>
-            </div>
-          </details>
         </div>
       </div>
     </div>
