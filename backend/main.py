@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from app.core.database import engine, Base
 from app.routes import auth, equipment, booking_auth, booking, category, admin
+from app.core.scheduler import start_scheduler, stop_scheduler
 from sqlalchemy import text
 
 # Create database tables with proper enum handling
@@ -22,7 +24,17 @@ def create_tables_safely():
 
 create_tables_safely()
 
-app = FastAPI(title="Equipment Lending System", version="1.0.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    start_scheduler()
+    yield
+    # Shutdown
+    stop_scheduler()
+
+
+app = FastAPI(title="Equipment Lending System", version="1.0.0", lifespan=lifespan)
 
 # Configure CORS
 app.add_middleware(

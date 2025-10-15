@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Equipment } from '../types';
+import { apiClient } from '../api/client';
 
 interface EquipmentDetailsModalProps {
   equipment: Equipment;
@@ -8,10 +9,30 @@ interface EquipmentDetailsModalProps {
 }
 
 const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({ 
-  equipment, 
+  equipment: initialEquipment, 
   onClose, 
   onBookNow 
 }) => {
+  const [equipment, setEquipment] = useState<Equipment>(initialEquipment);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Fetch fresh equipment data when modal opens
+    const fetchFreshData = async () => {
+      try {
+        setLoading(true);
+        const freshEquipment = await apiClient.getEquipmentById(initialEquipment.id);
+        setEquipment(freshEquipment);
+      } catch (error) {
+        console.error('Failed to fetch fresh equipment data:', error);
+        // Keep using the initial equipment data if fetch fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFreshData();
+  }, [initialEquipment.id]);
   const handleOverlayClick = (e: React.MouseEvent) => {
     // Only close if clicking directly on the overlay, not on child elements
     if (e.target === e.currentTarget) {
@@ -24,14 +45,47 @@ const EquipmentDetailsModal: React.FC<EquipmentDetailsModalProps> = ({
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="text-xl font-semibold text-gray-900">Equipment Details</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={async () => {
+                try {
+                  setLoading(true);
+                  const freshEquipment = await apiClient.getEquipmentById(equipment.id);
+                  setEquipment(freshEquipment);
+                } catch (error) {
+                  console.error('Failed to refresh equipment data:', error);
+                } finally {
+                  setLoading(false);
+                }
+              }}
+              disabled={loading}
+              className="text-gray-400 hover:text-gray-600"
+              title="Refresh equipment status"
+              aria-label="Refresh equipment status"
+            >
+              <svg 
+                className={`w-5 h-5 ${loading ? 'animate-spin' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
+                />
+              </svg>
+            </button>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="modal-body">

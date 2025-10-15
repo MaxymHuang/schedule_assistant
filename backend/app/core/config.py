@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     
     # Application configuration
     ENVIRONMENT: str = "development"
+    DOCKER_CONTAINER: Optional[str] = None
     
     @property
     def database_url(self) -> str:
@@ -35,7 +36,7 @@ class Settings(BaseSettings):
         if self.is_production:
             # Check if we're in a containerized environment or have environment variables set
             # If so, skip validation as configuration is managed externally
-            if (os.getenv("DOCKER_CONTAINER", False) or 
+            if (self.DOCKER_CONTAINER or 
                 os.getenv("POSTGRES_PASSWORD") or 
                 os.getenv("SECRET_KEY")):
                 return

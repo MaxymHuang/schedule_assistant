@@ -140,10 +140,10 @@ def cancel_booking(
             detail="Booking not found"
         )
     
-    if booking.status != BookingStatus.ACTIVE:
+    if booking.status not in [BookingStatus.ACTIVE, BookingStatus.ONGOING]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Only active bookings can be cancelled"
+            detail="Only active or ongoing bookings can be cancelled"
         )
     
     # Delete the booking record completely instead of just changing status

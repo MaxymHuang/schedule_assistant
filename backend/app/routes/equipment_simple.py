@@ -31,7 +31,23 @@ def get_equipment(
             (Equipment.model.contains(search))
         )
     
-    return query.offset(skip).limit(limit).all()
+    equipment_list = query.offset(skip).limit(limit).all()
+    
+    # Update equipment status based on current bookings for real-time accuracy
+    from ..models.booking import Booking, BookingStatus
+    for equipment in equipment_list:
+        ongoing_booking = db.query(Booking).filter(
+            Booking.equipment_id == equipment.id,
+            Booking.status == BookingStatus.ONGOING
+        ).first()
+        
+        # Update status in real-time
+        if ongoing_booking:
+            equipment.status = EquipmentStatus.BORROWED
+        else:
+            equipment.status = EquipmentStatus.AVAILABLE
+    
+    return equipment_list
 
 
 @router.get("/{equipment_id}", response_model=EquipmentSchema)
@@ -42,6 +58,20 @@ def get_equipment_by_id(equipment_id: int, db: Session = Depends(get_db)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Equipment not found"
         )
+    
+    # Update equipment status based on current bookings
+    from ..models.booking import Booking, BookingStatus
+    ongoing_booking = db.query(Booking).filter(
+        Booking.equipment_id == equipment_id,
+        Booking.status == BookingStatus.ONGOING
+    ).first()
+    
+    # Update status in real-time
+    if ongoing_booking:
+        equipment.status = EquipmentStatus.BORROWED
+    else:
+        equipment.status = EquipmentStatus.AVAILABLE
+    
     return equipment
 
 
@@ -66,7 +96,7 @@ def check_equipment_availability(
     # Get all active bookings for this equipment
     active_bookings = db.query(Booking).filter(
         Booking.equipment_id == equipment_id,
-        Booking.status == BookingStatus.ACTIVE
+        Booking.status.in_([BookingStatus.ACTIVE, BookingStatus.ONGOING])
     ).all()
     
     # Check for time overlaps

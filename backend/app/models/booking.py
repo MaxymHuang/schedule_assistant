@@ -8,6 +8,7 @@ from datetime import timedelta
 
 class BookingStatus(str, enum.Enum):
     ACTIVE = "active"
+    ONGOING = "ongoing"
     COMPLETED = "completed"
     CANCELLED = "cancelled"
 

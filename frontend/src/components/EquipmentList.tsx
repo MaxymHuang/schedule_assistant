@@ -24,6 +24,7 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ onViewDetails, onBookNow 
   const loadEquipment = async () => {
     try {
       setLoading(true);
+      setError(''); // Clear any previous errors
       const data = await apiClient.getEquipment(filters);
       setEquipment(data);
     } catch (err) {
@@ -31,6 +32,10 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ onViewDetails, onBookNow 
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRefresh = () => {
+    loadEquipment();
   };
 
   const handleFilterChange = (key: string, value: string) => {
@@ -62,6 +67,32 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ onViewDetails, onBookNow 
 
   return (
     <div className="space-y-8">
+      {/* Header with Refresh Button */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-900">Equipment</h2>
+        <button
+          onClick={handleRefresh}
+          disabled={loading}
+          className="btn btn-outline btn-sm"
+          title="Refresh equipment status"
+        >
+          <svg 
+            className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
+            />
+          </svg>
+          {loading ? 'Refreshing...' : 'Refresh'}
+        </button>
+      </div>
+
       {/* Filters */}
       <div className="card">
         <div className="card-body">

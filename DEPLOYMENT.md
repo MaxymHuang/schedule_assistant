@@ -19,11 +19,29 @@ git clone <repository-url>
 cd schedule_assistant
 
 # Copy environment templates
-cp backend/.env.example backend/.env
+cp backend/env.example backend/.env
 cp frontend/.env.example frontend/.env
 ```
 
 ### 2. Configure Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```bash
+# PostgreSQL Database Configuration
+POSTGRES_DB=equipment_lending
+POSTGRES_USER=equipment_user
+POSTGRES_PASSWORD=your_secure_password_here
+
+# JWT Configuration
+SECRET_KEY=your_super_secret_key_here
+```
+
+**Important Security Notes:**
+- Use strong, unique passwords for `POSTGRES_PASSWORD`
+- Generate a secure random string for `SECRET_KEY` (at least 32 characters)
+- Never commit the `.env` file to version control
+- The `.env` file is used by docker-compose.prod.yml to set environment variables
 
 Edit `backend/.env` and update the following values:
 
@@ -59,6 +77,7 @@ VITE_APP_VERSION=1.0.0
 
 ```bash
 # Build and start all services
+# Make sure you have created the .env file in the root directory first
 docker-compose -f docker-compose.prod.yml up -d
 
 # Check service status

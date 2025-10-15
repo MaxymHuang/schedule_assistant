@@ -15,6 +15,10 @@ class BookingBase(BaseModel):
             raise ValueError('Booking duration must be between 1 and 8 hours')
         return v
 
+
+class BookingCreateBase(BookingBase):
+    """Base class for booking creation with validation"""
+    
     @validator('booking_start_datetime')
     def validate_booking_window(cls, v):
         now = datetime.now(timezone.utc)
@@ -27,7 +31,7 @@ class BookingBase(BaseModel):
         return v
 
 
-class BookingCreate(BookingBase):
+class BookingCreate(BookingCreateBase):
     borrower_name: str = ""
     borrower_email: str = ""
 

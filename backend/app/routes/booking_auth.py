@@ -145,7 +145,7 @@ def create_booking(
     # Check for conflicting bookings (time overlap detection)
     conflicting_bookings = db.query(Booking).filter(
         Booking.equipment_id == booking.equipment_id,
-        Booking.status == BookingStatus.ACTIVE,
+        Booking.status.in_([BookingStatus.ACTIVE, BookingStatus.ONGOING]),
         Booking.booking_start_datetime < booking_end_time
     ).all()
     
@@ -197,10 +197,10 @@ def cancel_booking(
             detail="Booking not found"
         )
     
-    if booking.status != BookingStatus.ACTIVE:
+    if booking.status not in [BookingStatus.ACTIVE, BookingStatus.ONGOING]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Only active bookings can be cancelled"
+            detail="Only active or ongoing bookings can be cancelled"
         )
     
     # Delete the booking record completely instead of just changing status
