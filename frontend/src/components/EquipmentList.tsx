@@ -182,15 +182,13 @@ const EquipmentList: React.FC<EquipmentListProps> = ({ onViewDetails, onBookNow 
                 >
                   View Details
                 </button>
-                {item.status === 'available' && (
-                  <button
-                    onClick={() => onBookNow(item)}
-                    className="btn btn-success"
-                    style={{ flex: 1 }}
-                  >
-                    Book Now
-                  </button>
-                )}
+                <button
+                  onClick={() => onBookNow(item)}
+                  className="btn btn-success"
+                  style={{ flex: 1 }}
+                >
+                  {item.status === 'available' ? 'Book Now' : 'Reserve'}
+                </button>
               </div>
             </div>
           </div>

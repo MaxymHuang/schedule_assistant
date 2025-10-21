@@ -139,7 +139,9 @@ def check_equipment_availability(
         if booking_end > start_datetime:
             actual_conflicts.append(booking)
     
-    is_available = len(actual_conflicts) == 0 and equipment.status == EquipmentStatus.AVAILABLE
+    # Allow future bookings even if equipment is currently borrowed
+    # Only check for time conflicts, not current status
+    is_available = len(actual_conflicts) == 0
     
     return {
         "equipment_id": equipment_id,

@@ -115,12 +115,8 @@ def create_booking(
             detail="Equipment not found"
         )
     
-    # Check if equipment is available
-    if equipment.status != EquipmentStatus.AVAILABLE:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Equipment is not available"
-        )
+    # Note: We allow bookings even if equipment is currently borrowed
+    # The availability check is handled by time conflict detection below
     
     # Validate booking start time is not in the past and within 2 weeks
     from datetime import timezone
