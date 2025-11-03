@@ -70,12 +70,13 @@ services:
     container_name: equipment-lending-frontend
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       backend:
         condition: service_healthy
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1/"]
+      test: ["CMD", "wget", "--no-check-certificate", "--no-verbose", "--tries=1", "--spider", "https://127.0.0.1/"]
       interval: 30s
       timeout: 10s
       retries: 3
